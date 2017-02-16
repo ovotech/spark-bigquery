@@ -44,7 +44,9 @@ object BigQuerySchema {
       case BinaryType => "BYTES"
       case BooleanType => "BOOLEAN"
       case TimestampType => "TIMESTAMP"
+      case DateType => "DATE"
       case ArrayType(_, _) | MapType(_, _, _) | _: StructType => "RECORD"
+      case _ => throw new RuntimeException (s"Couldn't match type $dataType")
     }
   }
 
