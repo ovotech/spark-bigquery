@@ -40,7 +40,10 @@ object BigQuerySchema {
     dataType match {
       case ByteType | ShortType | IntegerType | LongType => "INTEGER"
       case FloatType | DoubleType => "FLOAT"
-      case _: DecimalType | StringType => "STRING"
+      case StringType => "STRING"
+
+      // Technically a FLOAT isn't always big enough but Spark insists on serializing this as a number not a string
+      case _: DecimalType => "FLOAT"
       case BinaryType => "BYTES"
       case BooleanType => "BOOLEAN"
       case TimestampType => "TIMESTAMP"
